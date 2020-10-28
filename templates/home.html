@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    {% block head%}
+    <link rel="stylesheet" href="{% static 'css/home.css'%}">
+    <title>Home| shopping.com</title>
+    {% endblock %}
+</head>
+<body>
+    {% block banner %}
+    <div id="banner">
+        <img src="{% static 'images/shop.webp' %}" alt="">
+    </div>
+    {% endblock %}
+    <div id="navbar">
+        <ul id="first">
+            <li><a href="/">Home</a></li>
+            <li><a href="">Login</a></li>
+            <li><a href="">Market</a></li>
+            <li><a href="">About</a></li>
+        </ul>
+        <ul id="search">
+            <input type="search" id="query"><button class="btn btn-success m-1">Search</button>
+        </ul>
+    </div>
+    {% block content %}
+    <div id="content">
+        <h4>Recommanded for you</h4>
+        <div class="row m-1 border border-dark">
+            {% for product in allproducts%}
+            <div class="col-md-4">
+                <img src="{{product.product_image.url}}" alt="" width="400" height="300">
+                <form method="post">
+                    <label>Name : {{product.product_name}}</label>
+                    <label>Price : {{product.product_price}}</label>
+                    <label>Details : {{product.product_details  }}</label>
+                    <a href="" class="btn btn-primary ">Add to cart</a>
+                    <a href="" class="btn btn-primary ">Buy now</a>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

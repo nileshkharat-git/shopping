@@ -6,9 +6,9 @@ from .models import Accounts
 
 
 class MyForm(forms.ModelForm):
-    email=forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}))
-    username=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    email=forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control'}),label="Enter email")
+    username=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}),label="Enter username")
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}),label="Set password")
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}),label="Confirm password")
     
     class Meta:
@@ -21,3 +21,7 @@ class MyForm(forms.ModelForm):
         pw2 = cleaned_data['password2']
         if pw1 != pw2:
             raise ValidationError("Password must be same as a enter above!")
+    
+class LogForm(forms.Form):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control border border-dark','name':'email'}),label="Email")
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control border border-dark','name':'password'}),label="Password")

@@ -12,6 +12,7 @@
     {% endblock %}
 </head>
 <body>
+    {% include 'messages.html' %}
     {% block banner %}
     <div id="banner">
         <img src="{% static 'images/shop.webp' %}" alt="">
@@ -20,12 +21,17 @@
     <div id="navbar">
         <ul id="first">
             <li><a href="/">Home</a></li>
-            <li><a href="{% url 'sign' %}">Login</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            <li><a href="">My Cart</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
             <li><a href="{% url 'market' %}">Market</a></li>
             <li><a href="">About</a></li>
         </ul>
         <ul id="search">
-            <input type="search" id="query"><button class="btn btn-success m-1">Search</button>
+            <input type="search" id="query"><button class="btn btn-success btn-sm m-1">Search</button>
         </ul>
     </div>
     {% block content %}

@@ -1,0 +1,22 @@
+{% extends 'navbar.html' %} {% load static %} {% block content %}
+<title>My cart | shopping.com</title>
+<link rel="stylesheet" href="{% static 'css/mycart.css'%}" />
+<div class="content">
+  {% for allproduct in cart %} {% for product in allproduct%}
+  <div class="product">
+    <img src="{{product.product_image.url}}" alt="Image not found" />
+    <form method="post">
+      <label>Name : {{product.product_name}}</label>
+      <label>Quantity : {{product.product_quantity}}</label>
+      <label>Price : {{product.product_price}} $</label>
+      <a href="" class="btn btn-primary">Proceed to Buy</a>
+      <a
+        href="{% url 'removeProduct' email=email pname=product.product_name %}"
+        class="btn btn-danger"
+        >Remove</a
+      >
+    </form>
+  </div>
+  {% endfor %} {% endfor %}
+</div>
+{% endblock %}

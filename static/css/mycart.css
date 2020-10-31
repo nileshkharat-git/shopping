@@ -1,0 +1,21 @@
+.content {
+  width: 80%;
+  margin: auto;
+  padding-bottom: 5px;
+}
+img {
+  width: 400px;
+  height: 300px;
+  margin-top: 40px;
+}
+form {
+  margin: auto;
+  display: block;
+}
+form label {
+  display: block;
+}
+.product{
+  border-bottom: 1px solid black;
+  display: flex;
+}

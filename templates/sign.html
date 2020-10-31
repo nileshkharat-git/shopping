@@ -1,22 +1,22 @@
-{% extends 'home.html'%}
+{% extends 'navbar.html'%}
 {%load static %}
-{%block head%}
+{% block content%}
+<head>
     <style>
         form{
             width: 500px;
             margin: 100px auto;
         }
     </style>
-{%endblock%}
-{%block banner%}
-{%endblock%}
-{% block content %}
+    <title>Login | shopping.com</title>
+</head>
+
 <form method="post">
     {% csrf_token %}
     {{form.as_p}}
     <input type="submit" value="Login" class="btn btn-primary d-block m-auto">
 </form>
-<a href="{% url 'sign' %}" class="text-center" id="signlink">New user?Create account</a>
+<a href="{% url 'sign' %}" class="text-center d-block" id="signlink">New user?Create account</a>
 <script>
     $(function(){
         var url=window.location.href;
@@ -24,7 +24,6 @@
             $("#signlink").remove();
             $('.btn-primary').val('Sign up');
         }
-        
     });
 </script>
-{%endblock%}
+{% endblock %}

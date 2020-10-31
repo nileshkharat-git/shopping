@@ -21,6 +21,9 @@ body{
     height: 70px;
     background: black;
     margin-top: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 #navbar #first{
     width: 50%;

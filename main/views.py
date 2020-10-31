@@ -4,11 +4,15 @@ from django.contrib.auth import authenticate,login,logout
 from .forms import MyForm,LogForm
 
 def cust_signup(request):
-    form = MyForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        success(request,"Account create successfully.")
-        return redirect('/')
+    if request.POST:
+        try:
+            form=MyForm(request.POST)
+            if form.save():
+                success(request,"Account create successfully.")
+                return redirect(cust_login)
+        except Exception:
+            error(request,"Please enter valid details.")
+    form = MyForm()
     return render(request, 'sign.html', {'form': form})
 
 def cust_login(request):
@@ -22,8 +26,10 @@ def cust_login(request):
             info(request, f"Welcome {user.username}")
             print("login success")
             return redirect('/')
+    else:
+        pass
     return render(request, 'sign.html', {'form': form})
     
 def cust_logout(request):
     logout(request)
-    return redirect(cust_login)
+    return redirect('/')

@@ -1,4 +1,5 @@
 from django.db import models
+from main.models import Accounts
 
 class ProductType(models.Model):
     p_type = models.CharField(max_length=255)
@@ -16,3 +17,13 @@ class Products(models.Model):
 
     def __str__(self):
         return f"{self.product_id}.{self.product_name}"
+
+class MyCart(models.Model):
+    user=models.ForeignKey(Accounts,on_delete=models.CASCADE)
+    product_name=models.CharField(max_length=255)
+    quantity = models.IntegerField()
+    total = models.IntegerField()
+    purchesed=models.BooleanField(default=False)
+    
+    def __str__(self):
+        return str(self.user)

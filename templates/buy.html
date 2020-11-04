@@ -1,8 +1,67 @@
-{% extends 'navbar.html'%}
-{% load static %}
+{% extends 'navbar.html'%} {% load static %} {% block content %}
+<title>buy now | shopping.com</title>
+<link rel="stylesheet" href="{% static 'css/buy.css' %}" />
+<script src="{% static 'js/jquery.min.js'%}"></script>
+<script src="{% static 'js/sweetalert2.all.min.js'%}"></script>
 
-{% block content %}
 <div class="content">
-    <h1 class="display1">hii this is buy now</h1>
+  <img src="{{ product.product_image.url}}" alt="img not found" />
+  <h1>{{product.product_name}}</h1>
+  <label>Price : {{product.product_price}} $</label>
+  <label>Quantity : {{quantity}}</label>
+  <label>Details : {{product.product_details}}</label>
+  <a id="proceed" class="btn btn-primary btn-lg text-light">Proceed to buy</a>
 </div>
-{% endbolck %}
+
+<script>
+  $(function () {
+    var buy = `<div id="buy">
+  <div class="custom-control custom-radio">
+    <input type="radio" id="customRadio1" name="pmt" class="custom-control-input" value="cod" />
+    <label class="custom-control-label" for="customRadio1">Cash on dilevery</label>
+    </div>
+
+  <div class="custom-control custom-radio">
+    <input type="radio" id="customRadio2" name="pmt" class="custom-control-input" value="nbk" />
+    <label class="custom-control-label" for="customRadio2">Net banking</label>
+  </div>
+  
+  <div class="custom-control custom-radio">
+    <input type="radio" id="customRadio3" name="pmt" class="custom-control-input" value="emi" />
+    <label class="custom-control-label" for="customRadio3">EMI</label>
+  </div>
+  
+  <div class="custom-control custom-radio">
+    <input type="radio" id="customRadio4" name="pmt" class="custom-control-input" value="upi" />
+    <label class="custom-control-label" for="customRadio4">BHIM UPI</label>
+  </div>
+  `;
+    $("#proceed").click(function () {
+      $(this).after(buy);
+      $(this).hide();
+      $("input[type='radio']").change(function(){
+        show_pmt($(this));
+      })
+    });
+    function show_pmt(element){
+      $.ajax({
+        url:"{% url 'payment' %}",
+        type:"POST",
+        data:{
+          payment:element.val(),
+          csrftoken:"{% csrf_token %}"
+        },
+        success:()=>{
+          $(location).attr('pathname','/')
+        },
+        error:()=>{
+          Swal.fire("shopping.com say's","There is a problem occure","error");
+        }
+        
+      });
+    }
+
+    
+  });
+</script>
+{% endblock %}

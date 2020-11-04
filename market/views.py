@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.contrib.messages import success
 from django.contrib.auth.decorators import login_required
 from .models import Products, MyCart
 from main.models import Accounts
@@ -23,9 +24,18 @@ def add_to_cart(request, email, pid):
     return redirect(my_cart,user.email)
     
 def remove_product(request, email, pname):
-    product=MyCart(user=Accounts.objects.get(email=email),product_name=pname)
+    product=MyCart.objects.filter(user=Accounts.objects.get(email=email),product_name=pname)
     product.delete()
+    success(request,"Product removed successfully.")
     return redirect(my_cart,email)
     
-def buy_now(request):
-    return render(request,'navbar.html')
+@login_required(login_url='/accounts/login')    
+def buy_now(request, pid=None, email=None):
+    product=Products.objects.get(product_id=pid)
+    quantity = MyCart.objects.get(user=Accounts.objects.get(email=email), product_name=product.product_name).quantity
+    context={'product':product,'quantity':quantity}
+    return render(request, 'buy.html', context)
+
+def payment_getway(request):
+    payment=request.POST['payment']
+    return render(request,'mypages/payment.html')

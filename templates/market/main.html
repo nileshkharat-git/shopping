@@ -21,9 +21,8 @@
         <a
           href="{% url 'addToCart' email=email pid=product.product_id %}"
           class="btn btn-primary"
-          >Add to cart</a
-        >
-        <a href="" class="btn btn-primary">Buy now</a>
+          >Add to cart</a>
+        <a href="{% url 'buy' pid=product.product_id email=email %}" class="btn btn-primary">Buy now</a>
       </form>
     </div>
     {% endfor %}

@@ -10,7 +10,7 @@ class ProductType(models.Model):
 class Products(models.Model):
     product_id=models.IntegerField(primary_key=True)
     product_name=models.CharField(max_length=255)
-    product_type=models.OneToOneField(ProductType,on_delete=models.CASCADE)
+    product_type=models.ForeignKey(ProductType,on_delete=models.CASCADE)
     product_details=models.TextField(null=True)
     product_price = models.FloatField()
     product_image=models.ImageField(blank=True,null=True,upload_to="products")

@@ -1,36 +1,49 @@
-{% if messages %}
-{% for msg in messages %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.9.0/dist/sweetalert2.all.min.js"></script>
+{% if messages %} 
+{% for msg in messages %} 
 {% if msg.level == DEFAULT_MESSAGE_LEVELS.INFO %}
-<div class="alert alert-{{msg.tags}}" role="alert">
+<!-- <div class="alert alert-{{msg.tags}}" role="alert">
   {{msg}}
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-</div>
-{% endif %}
+</div> -->
+<script>
+  Swal.fire("shopping.com say's", "{{msg}}", "{{msg.tags}}");
+</script>
+{% endif %} 
 {% if msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-<div class="alert alert-{{msg.tags}}" role="alert">
+<!-- <div class="alert alert-{{msg.tags}}" role="alert">
   {{msg}}
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-{% endif %}
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div> -->
+<script>
+  Swal.fire("shopping.com say's", "{{msg}}", "{{msg.tags}}");
+</script>
+{% endif %} 
 {% if msg.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
-<div class="alert alert-{{msg.tags}}" role="alert">
+<!-- <div class="alert alert-{{msg.tags}}" role="alert">
   {{msg}}
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-{% endif %}
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div> -->
+<script>
+  Swal.fire("shopping.com say's", "{{msg}}", "{{msg.tags}}");
+</script>
+{% endif %} 
 {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-<div class="alert alert-danger" role="alert">
+<!-- <div class="alert alert-danger" role="alert">
   {{msg}}
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-{% endif %}
-{% endfor %}
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div> -->
+<script>
+  Swal.fire("shopping.com say's", "{{msg}}", "{{msg.tags}}");
+</script>
+{% endif %} 
+{% endfor %} 
 {% endif %}

@@ -32,4 +32,4 @@ def cust_login(request):
     
 def cust_logout(request):
     logout(request)
-    return redirect('/')
+    return redirect(cust_login)

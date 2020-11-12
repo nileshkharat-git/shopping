@@ -1,11 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
+{% load static %}
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Payment</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+  <style>
+    #bank {
+      visibility: hidden;
+    }
+  </style>
 </head>
-<body>
-    <h1>This is payment page</h1>
+
+<body class="container">
+  <div class="jumbotron d-flex flex-column">
+    <div class="input-group input-group-lg my-1">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input
+            type="radio"
+            aria-label="Radio button for following text input"
+            name="pmt"
+            id="cod"
+            value="cod"
+          />
+        </div>
+        <label> Cash on delivary</label>
+      </div>
+    </div>
+    <div class="input-group input-group-lg my-1">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input
+            type="radio"
+            aria-label="Radio button for following text input"
+            name="pmt"
+            id="emi"
+            value="emi"
+          />
+        </div>
+        <label> EMI</label>
+      </div>
+    </div>
+
+    <div class="input-group input-group-lg my-1">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input
+            type="radio"
+            aria-label="Radio button for following text input"
+            name="pmt"
+            value="nbk"
+            id="nbk"
+          />
+        </div>
+        <label>Net Banking</label>
+      </div>
+    </div>
+    <div class="input-group mt-3">
+      <select class="custom-select" id="bank" name="bank">
+        <option selected>Select Bank</option>
+        <option value="sbi">SBI</option>
+        <option value="hdfc">HDFC</option>
+        <option value="icici">ICICI</option>
+      </select>
+    </div>
+    <form method="get" class="text-center my-3">
+      <input type="hidden" value="" id="pmtm">
+      <button class="btn btn-success col-md-2 " disabled type="submit">
+        Place Order
+      </button>
+    </form>
+    <script>
+      let nbk = document.querySelector("#nbk");
+      nbk.addEventListener("click", function () {
+        setTimeout(function () {
+          document.querySelector("#bank").style.visibility = "visible";
+        }, 500);
+      });
+      let checks = document.querySelectorAll("input[type='radio']");
+      checks.forEach(element => {
+        element.addEventListener("click",()=>{
+          let method=this.value;
+        });
+      });
+    </script>
+  </div>
 </body>
-</html>

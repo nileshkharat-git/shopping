@@ -23,6 +23,7 @@ class MyCart(models.Model):
     product_name=models.CharField(max_length=255)
     quantity = models.IntegerField()
     total = models.IntegerField()
+    payment_method=models.CharField(max_length=100,null=True)
     purchesed=models.BooleanField(default=False)
     
     def __str__(self):

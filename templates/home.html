@@ -13,11 +13,7 @@
     {% endblock %}
   </head>
   <body>
-    {% include 'messages.html' %} {% block banner %}
-    <div id="banner">
-      <img src="{% static 'images/shop.webp' %}" alt="" />
-    </div>
-    {% endblock %}
+    {% include 'messages.html' %}
     <div id="navbar">
       <ul id="first">
         <li><a href="/">Home</a></li>
@@ -43,30 +39,80 @@
         </button>
       </ul>
     </div>
-    {% block content %}
+
+    {% block banner %}
     <div id="content">
-      <h4>Recommanded for you</h4>
-      <div class="row m-1">
-        {% for product in allproducts%}
-        <div class="col-md-4">
-          <img
-            src="{{product.product_image.url}}"
-            alt=""
-            width="400"
-            height="300"
-          />
-          <form method="post">
-            <label>Name : {{product.product_name}}</label>
-            <label>Price : {{product.product_price}}</label>
-            <label>Details : {{product.product_details }}</label>
-            <a href="" class="btn btn-primary">Add to cart</a>
-            <a href="" class="btn btn-primary">Buy now</a>
-          </form>
-        </div>
-        {% endfor %}
+      <div class="jumbotron mt-2" id="offer">
+        <a class="display-3 text-center" href="">Diwaali Offer</a>
+        <p class="display-5 text-center text-light">
+          Get 20% off on Exclusive shopping. <br />From 1 Nov to 20 Nov
+        </p>
       </div>
     </div>
-    {% endblock %}
+
+    <div id="banner">
+      <div class="row bg-primary text-light" id="large">
+        
+        <div class="col-md-6">
+          <h1 class="display-4 text-center">{{titles.5}}</h1>
+          <form action="{% url 'offer' ptype=5 %}" method="post" class="bigicon" target="_blank">
+            {% csrf_token %}
+            <input type="hidden" name="email" value="{{user.email}}" />
+             <img src="{% static 'images/apparel.webp'%}" alt="" id="cloth" />
+             <button class="btn btn-success d-block m-auto">Go</button>
+          </form>
+        </div>
+
+        <div class="col-md-6">
+          <h1 class="display-4 text-center">{{titles.4}}</h1>
+          <form action="{% url 'offer' ptype=4 %}" method="post" class="bigicon" target="_blank">
+            {% csrf_token %}
+            <input type="hidden" name="email" value="{{user.email}}" />
+              <img src="{% static 'images/laptop.webp'%}" alt="" id="elec" />
+              <button class="btn btn-success d-block m-auto">Go</button>
+          </form>
+        </div>
+
+        <div class="col-md-6">
+          <h1 class="display-4 text-center">{{titles.6}}</h1>
+          <form action="{% url 'offer' ptype=6 %}" method="post" class="bigicon" target="_blank">
+            {% csrf_token %}
+            <input type="hidden" name="email" value="{{user.email}}" />
+            <img src="{% static 'images/rubiks-cube.webp'%}" alt="" id="toys" />
+            <button class="btn btn-success d-block m-auto">Go</button>
+          </form>
+        </div>
+        
+        <div class="col-md-6">
+          <h1 class="display-4 text-center">{{titles.1}}</h1>
+          <form action="{% url 'offer' ptype=1 %}" method="post" class="bigicon">
+            {% csrf_token %}
+            <input type="hidden" name="email" value="{{user.email}}" />
+            <img src="{% static 'images/smartphone.webp'%}" alt="" id="mobiles" />
+            <button class="btn btn-success d-block m-auto ">Go</button>
+          </form>
+        </div>
+      </div>
+
+      <h1 class="display-3 bg-warning text-center mb-0 text-light">
+        {{titles.2}}
+      </h1>
+      <div class="row bg-warning text-light" id="small">
+        <div class="col-md-3">
+          <h1 class="display-4 text-center">Pizza</h1>
+          <a><img src="{% static 'images/pizza.webp'%}" alt="" /></a>
+        </div>
+        <div class="col-md-3">
+          <h1 class="display-4 text-center">Burger</h1>
+          <a><img src="{% static 'images/hamburger.webp'%}" alt="" /></a>
+        </div>
+        <div class="col-md-3">
+          <h1 class="display-4 text-center">Drink</h1>
+          <a><img src="{% static 'images/tail.webp'%}" alt="" /></a>
+        </div>
+      </div>
+    </div>
+    {% endblock %} {% block content %} {% endblock %}
     <script>
       $(function () {
         $("#searchButton").click((event) => {
@@ -76,6 +122,9 @@
         $("#about").click(function () {
           Swal.fire("Good job!", "You clicked the button!", "success");
         });
+        
+        
+        
       });
     </script>
   </body>

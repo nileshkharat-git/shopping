@@ -35,7 +35,12 @@ def buy_now(request, pid=None, email=None):
     quantity = MyCart.objects.get(user=Accounts.objects.get(email=email), product_name=product.product_name).quantity
     context={'product':product,'quantity':quantity}
     return render(request, 'buy.html', context)
-
+    
 def payment_getway(request):
     payment=request.POST['payment']
-    return render(request,'mypages/payment.html')
+    return render(request, 'mypages/payment.html')
+
+
+def offer(request,ptype):
+    url = "offer/clothOffer.html"
+    return render(request,url)

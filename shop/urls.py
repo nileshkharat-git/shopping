@@ -9,7 +9,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name="home"),
     path('accounts/',include('main.urls')),
-    path('market/',include('market.urls')),
+    path('market/', include('market.urls')),
+    path('offer/<ptype>',cloth_offer,name="offer"),
+    path('payment',payment,name="payment"),
 ]
 
 if settings.DEBUG:

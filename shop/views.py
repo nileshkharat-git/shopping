@@ -1,6 +1,6 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-from market.models import Products,ProductType
+from django.shortcuts import render, redirect
+from market.models import Products, ProductType, MyCart
+
 
 def home(request):
     product_types = ProductType.objects.all()
@@ -14,6 +14,3 @@ def cloth_offer(request, ptype=None):
     email=request.POST['email']
     return render(request,"offer/clothOffer.html",{'items':items,'email':email})
 
-def payment(request):
-    
-    return render(request,"payment.html")

@@ -41,12 +41,12 @@ body {
   letter-spacing: 2px;
   font-size: 32px;
 }
-#first li a {
+#first li .navbtn {
   color: #fff;
   text-decoration: none;
   padding: 0 10px;
 }
-#first li a:hover {
+#first li .navbtn:hover {
   transition: 1500ms;
   background: #fff;
   border-radius: 10px;

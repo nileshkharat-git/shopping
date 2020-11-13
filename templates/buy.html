@@ -10,10 +10,13 @@
   <label>Price : {{product.product_price}} $</label>
   <label>Quantity : {{quantity}}</label>
   <label>Details : {{product.product_details}}</label>
-  <a id="proceed" class="btn btn-primary btn-lg text-light" href="{% url 'payment'%}">Proceed to buy</a>
+  <form method="GET" class="text-center my-3" action="{% url 'payment' product_name=product.product_name%}">
+    <input type="hidden" value="{{email}}"  name="email" />
+    <button class="btn btn-primary btn-lg text-light" type="submit">
+      Proceed to buy
+    </button>
+  </form>
 </div>
 
-<script>
-  
-</script>
+<script></script>
 {% endblock %}

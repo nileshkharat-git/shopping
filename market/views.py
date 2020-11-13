@@ -33,13 +33,20 @@ def remove_product(request, email, pname):
 def buy_now(request, pid=None, email=None):
     product=Products.objects.get(product_id=pid)
     quantity = MyCart.objects.get(user=Accounts.objects.get(email=email), product_name=product.product_name).quantity
-    context={'product':product,'quantity':quantity}
+    context={'product':product,'quantity':quantity,'email':email}
     return render(request, 'buy.html', context)
     
-def payment_getway(request):
-    payment=request.POST['payment']
-    return render(request, 'mypages/payment.html')
-
+def payment_getway(request,product_name):
+    if request.POST:
+        payment = request.POST['payment']
+        email = request.POST['email']
+        cart = MyCart.objects.get(user=Accounts.objects.get(email=email), product_name=product_name)
+        cart.purchesed = True
+        cart.payment_method = payment
+        cart.save()
+        print(cart.user)
+        return redirect('/')
+    return render(request,"payment.html")
 
 def offer(request,ptype):
     url = "offer/clothOffer.html"

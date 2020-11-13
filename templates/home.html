@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{%static 'css/bootstrap.min.css' %}" />
-    <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.9.0/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/home.css'%}" />
     {% block head%}
@@ -16,18 +15,34 @@
     {% include 'messages.html' %}
     <div id="navbar">
       <ul id="first">
-        <li><a href="/">Home</a></li>
+        <li><a href="/" class="navbtn">Home</a></li>
         {% if user.is_authenticated %}
-        <li><a href="{% url 'logout' %}">Logout</a></li>
-        <li><a href="{% url 'cart' email=user.email %}">My Cart</a></li>
-        <li><a href="{% url 'market' email=user.email  %}">Market</a></li>
-        {% else %}
-        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'market' email=user.email  %}" class="navbtn">Market</a></li>
         <li>
-          <a href="{% url 'market' %}">Market</a>
+          <div class="dropdown">
+            <a
+              class="dropdown-toggle navbtn"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+             Account
+          </a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a href="{% url 'cart' email=user.email %}" class="dropdown-item">My Cart</a>
+              <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+            </div>
+          </div>
+        </li>
+        {% else %}
+        <li><a href="{% url 'login' %}" class="navbtn">Login</a></li>
+        <li>
+          <a href="{% url 'market' %}" class="navbtn">Market</a>
         </li>
         {% endif %}
-        <li><a id="about">About</a></li>
+        <li><a id="about" class="navbtn">About</a></li>
       </ul>
       <script></script>
       <ul id="search">
@@ -52,44 +67,66 @@
 
     <div id="banner">
       <div class="row bg-primary text-light" id="large">
-        
         <div class="col-md-6">
           <h1 class="display-4 text-center">{{titles.5}}</h1>
-          <form action="{% url 'offer' ptype=5 %}" method="post" class="bigicon" target="_blank">
+          <form
+            action="{% url 'offer' ptype=5 %}"
+            method="post"
+            class="bigicon"
+            target="_blank"
+          >
             {% csrf_token %}
             <input type="hidden" name="email" value="{{user.email}}" />
-             <img src="{% static 'images/apparel.webp'%}" alt="" id="cloth" />
-             <button class="btn btn-success d-block m-auto">Go</button>
+            <img src="{% static 'images/apparel.webp'%}" alt="" id="cloth" />
+            <button class="btn btn-success d-block m-auto">Go</button>
           </form>
         </div>
 
         <div class="col-md-6">
           <h1 class="display-4 text-center">{{titles.4}}</h1>
-          <form action="{% url 'offer' ptype=4 %}" method="post" class="bigicon" target="_blank">
+          <form
+            action="{% url 'offer' ptype=4 %}"
+            method="post"
+            class="bigicon"
+            target="_blank"
+          >
             {% csrf_token %}
             <input type="hidden" name="email" value="{{user.email}}" />
-              <img src="{% static 'images/laptop.webp'%}" alt="" id="elec" />
-              <button class="btn btn-success d-block m-auto">Go</button>
+            <img src="{% static 'images/laptop.webp'%}" alt="" id="elec" />
+            <button class="btn btn-success d-block m-auto">Go</button>
           </form>
         </div>
 
         <div class="col-md-6">
           <h1 class="display-4 text-center">{{titles.6}}</h1>
-          <form action="{% url 'offer' ptype=6 %}" method="post" class="bigicon" target="_blank">
+          <form
+            action="{% url 'offer' ptype=6 %}"
+            method="post"
+            class="bigicon"
+            target="_blank"
+          >
             {% csrf_token %}
             <input type="hidden" name="email" value="{{user.email}}" />
             <img src="{% static 'images/rubiks-cube.webp'%}" alt="" id="toys" />
             <button class="btn btn-success d-block m-auto">Go</button>
           </form>
         </div>
-        
+
         <div class="col-md-6">
           <h1 class="display-4 text-center">{{titles.1}}</h1>
-          <form action="{% url 'offer' ptype=1 %}" method="post" class="bigicon">
+          <form
+            action="{% url 'offer' ptype=1 %}"
+            method="post"
+            class="bigicon"
+          >
             {% csrf_token %}
             <input type="hidden" name="email" value="{{user.email}}" />
-            <img src="{% static 'images/smartphone.webp'%}" alt="" id="mobiles" />
-            <button class="btn btn-success d-block m-auto ">Go</button>
+            <img
+              src="{% static 'images/smartphone.webp'%}"
+              alt=""
+              id="mobiles"
+            />
+            <button class="btn btn-success d-block m-auto">Go</button>
           </form>
         </div>
       </div>
@@ -113,6 +150,9 @@
       </div>
     </div>
     {% endblock %} {% block content %} {% endblock %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script>
       $(function () {
         $("#searchButton").click((event) => {
@@ -122,9 +162,6 @@
         $("#about").click(function () {
           Swal.fire("Good job!", "You clicked the button!", "success");
         });
-        
-        
-        
       });
     </script>
   </body>

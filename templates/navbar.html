@@ -1,62 +1,14 @@
 {% load static %}
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-  }
-  #navbar {
-    width: 100%;
-    height: 70px;
-    background: black;
-    margin-top: 0px;
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
-  #navbar #first {
-    width: 50%;
-    justify-content: space-between;
-    margin-left: 10px;
-    margin-top: 7px;
-  }
-  #navbar,
-  #first {
-    display: flex;
-  }
-  #first li {
-    list-style: none;
-    margin: 3px;
-    font-family: Staatliches;
-    letter-spacing: 2px;
-    font-size: 32px;
-  }
-  #first li a {
-    color: #fff;
-    text-decoration: none;
-    padding: 0 10px;
-  }
-  #first li a:hover {
-    transition: 1500ms;
-    background: #fff;
-    border-radius: 10px;
-    color: #000;
-    font-family: Staatliches;
-    letter-spacing: 2px;
-    font-size: 32px;
-  }
-  #navbar #search {
-    display: block;
-    position: absolute;
-    right: 50px;
-  }
-</style>
 <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}" />
+<link rel="stylesheet" href="{% static 'css/navbar.css'%}" />
 <div id="navbar">
   {% include 'messages.html' %}
   <ul id="first">
-    <li><a href="/">Home</a></li>
+    <li><a href="/" class="navlinks">Home</a></li>
     {% if user.is_authenticated %}
-    <li><a href="{% url 'market' email=user.email  %}">Market</a></li>
+    <li>
+      <a href="{% url 'market' email=user.email  %}" class="navlinks">Market</a>
+    </li>
     <li>
       <div class="dropdown">
         <a
@@ -73,18 +25,22 @@
           <a href="{% url 'cart' email=user.email %}" class="dropdown-item"
             >My Cart</a
           >
-          <hr />
+          <form action="{% url 'dashboard'%}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Dashboard" class="dropdown-item" />
+          </form>
+
           <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
         </div>
       </div>
     </li>
     {% else %}
-    <li><a href="{% url 'login' %}">Login</a></li>
+    <li><a href="{% url 'login' %}" class="navlinks">Login</a></li>
     <li>
-      <a href="{% url 'market' %}">Market</a>
+      <a href="{% url 'market' %}" class="navlinks">Market</a>
     </li>
     {% endif %}
-    <li><a href="">About</a></li>
+    <li><a href="" class="navlinks">About</a></li>
   </ul>
   <ul id="search">
     <input type="search" id="query" /><button
@@ -109,4 +65,3 @@
     });
   });
 </script>
-{% block content %} {% endblock %}

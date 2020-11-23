@@ -13,7 +13,7 @@
   </head>
   <body>
     {% include 'messages.html' %}
-    <div id="navbar">
+     <div id="navbar">
       <ul id="first">
         <li><a href="/" class="navbtn">Home</a></li>
         {% if user.is_authenticated %}
@@ -32,7 +32,15 @@
           </a>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a href="{% url 'cart' email=user.email %}" class="dropdown-item">My Cart</a>
-              <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
+              <form
+              action="{% url 'dashboard'%}"
+              method="post"
+              >
+              {% csrf_token %}
+              <input type="hidden" name="email" value="{{user.email}}">
+              <input type="submit" value="Dashboard"  class="dropdown-item"/>
+            </form>
+            <a href="{% url 'logout' %}" class="dropdown-item">Logout</a>
             </div>
           </div>
         </li>
@@ -54,13 +62,12 @@
         </button>
       </ul>
     </div>
-
+    
     {% block banner %}
     <div id="content">
       <div class="jumbotron mt-2" id="offer">
-        <a class="display-3 text-center" href="">Diwaali Offer</a>
+        <a class="display-3 text-center" href="">shopping.com</a>
         <p class="display-5 text-center text-light">
-          Get 20% off on Exclusive shopping. <br />From 1 Nov to 20 Nov
         </p>
       </div>
     </div>

@@ -1,0 +1,151 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}" />
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <style>
+      .addressBox {
+        border: 1px solid black;
+        padding: 10px;
+        border-radius: 10px;
+      }
+      #addr {
+        overflow-y: scroll;
+        height: 700px;
+      }
+    </style>
+    <title>Add Location</title>
+  </head>
+  <body>
+    <div class="d-flex mt-2">
+      <div class="container col-md-6 ml-0">
+        <h3 class="text-center">Add Shipping Address</h3>
+        <form method="POST" class="col-md-10 m-auto" id="addLoc">
+          {% csrf_token %}
+          <input type="hidden" name="email" value="{{user.email}}">
+          <div class="form-group">
+            <label for="">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              placeholder="Enter Name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="">Mobile No</label>
+            <input
+              type="text"
+              class="form-control"
+              id="mobile"
+              name="mobile"
+              placeholder="Enter Contact"
+            />
+          </div>
+          <div class="form-group">
+            <label for="">House No</label>
+            <input
+              type="text"
+              class="form-control"
+              id="houseno"
+              name="houseno"
+              placeholder="Enter House No"
+            />
+          </div>
+          <div class="form-group">
+            <label for="">Area</label>
+            <textarea
+              class="form-control"
+              name="area"
+              id="area"
+              placeholder="Enter Area..."
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="">City</label>
+            <input
+              type="text"
+              class="form-control"
+              id="city"
+              name="city"
+              placeholder="Enter City"
+            />
+          </div>
+          <div class="form-group">
+            <label for="Sate">State</label>
+            <input
+              type="text"
+              class="form-control"
+              id="state"
+              name="state"
+              placeholder="Enter State"
+            />
+          </div>
+          <div class="form-group">
+            <label for="">Pincode</label>
+            <input
+              type="text"
+              class="form-control"
+              id="pincode"
+              name="pincode"
+              placeholder="Enter Pincode"
+            />
+          </div>
+          <div class="form-check">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="useDefault"
+              name="uad"
+              value="True"
+            />
+            <label class="form-check-label" for="exampleCheck1"
+              >Use as default address</label
+            >
+          </div>
+          <button type="submit" class="btn btn-primary d-block m-auto">
+            Add address
+          </button>
+        </form>
+      </div>
+      <div class="container col-md-2 mt-3" id="addr">
+        <h3 class="text-center">Select Address</h3>
+        
+      </div>
+    </div>
+    <script>
+      $(function () {
+        // $("#addLoc").on("submit", function (event) {
+        //   var name = $("#name").val();
+        //   var houseno = $("#houseno").val();
+        //   var area = $("#area").val();
+        //   var city = $("#city").val();
+        //   var state = $("#state").val();
+        //   var pincode = $("#pincode").val();
+        //   var ele = `<div class="addressBox mt-2">
+        //               <label><b>${name}</b></label>
+        //               <p>
+        //                 House No-${houseno}<br>
+        //                 ${area}, <br>
+        //                 ${city},<br>
+        //                 ${state}-<i>${pincode}</i>
+        //               </p>
+        //               <a href="#" class="btn btn-success d-block my-2">Select</a>
+        //               <a href="#" class="btn btn-danger d-block">Remove</a>
+        //           </div>`;
+
+        //   $("#addr").append(ele);
+        //   $("#name").val("");
+        //   $("#houseno").val("");
+        //   $("#area").val("");
+        //   $("#city").val("");
+        //   $("#pincode").val("");
+        // });
+      });
+    </script>
+  </body>
+</html>

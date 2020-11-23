@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <style>
+      .sidebar {
+        height: 40rem;
+        background-color: #333333;
+      }
+      .sidebar a ,#mo{
+        color: #fff;
+        display: block;
+        text-align: center;
+        font-size: 2rem;
+      }
+      #mo:hover{
+        cursor: pointer;
+        text-decoration: underline;
+      }
+    </style>
+    <title>My Account | shopping.com</title>
+  </head>
+  <body>
+    <div class="content d-flex">
+      <div class="sidebar col-md-2">
+        <a href="{% url 'addAddress' %}" class="border-bottom">Address</a>
+        <a  class="border-bottom" id="mo" onclick="myorder()">My Orders</a>
+      </div>
+      <div class="main col-md-10">
+          <h3 class="display-4 text-dark  border-bottom border-dark ">My Account</h3>
+        <form class="col-md-4 mx-5">
+          <label>Name</label>
+          <div class="input-group mb-3">
+            <input
+            type="text"
+            class="form-control"
+            readonly
+            value="{{user.username}}"
+            id="name"
+            />
+            <div class="input-group-append">
+              <span class="input-group-text" id="name-pen"
+                ><svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-pencil"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                >
+                <path
+                fill-rule="evenodd"
+                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+                /></svg
+                ></span>
+              </div>
+            </div>
+            
+          <label>Conatact</label>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              readonly
+              value="{{user.mobile}}"
+              id="mobileno"
+            />
+            <div class="input-group-append">
+              <span class="input-group-text" id="mobileno-pen"
+                ><svg
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  class="bi bi-pencil"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+                  /></svg
+              ></span>
+            </div>
+          </div>
+          <label>Email</label>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              readonly
+              value="{{user.email}}"
+              id="email"
+            />
+            <div class="input-group-append">
+              <span class="input-group-text" id="email-pen"
+                ><svg
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 16 16"
+                  class="bi bi-pencil"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5L13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175l-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"
+                  /></svg
+              ></span>
+            </div>
+          </div>
+
+          <button class="btn btn-success  w-100" disabled id="update">Update</button>
+        </form>
+      </div>
+    </div>
+    <script>
+      var name_pen=document.querySelector("#name-pen");
+      var mobile_pen=document.querySelector("#mobileno-pen");
+      var email_pen=document.querySelector("#email-pen");
+                
+      name_pen.addEventListener("click",()=>{
+        document.querySelector("#name").removeAttribute("readonly");
+      });
+
+      mobile_pen.addEventListener("click",()=>{
+        document.querySelector("#mobileno").removeAttribute("readonly");
+      });
+      
+      email_pen.addEventListener("click",()=>{
+        document.querySelector("#email").removeAttribute("readonly");
+      });
+
+      element= document.querySelectorAll("input");
+      element.forEach((ipt)=>{
+        ipt.addEventListener("change",()=>{
+          document.querySelector("#update").removeAttribute("disabled");
+        })
+      });
+      
+    </script>
+  </body>
+</html>

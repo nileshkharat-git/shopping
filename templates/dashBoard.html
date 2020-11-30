@@ -10,11 +10,13 @@
         height: 40rem;
         background-color: #333333;
       }
-      .sidebar a ,#mo{
+      .sidebar a ,button{
         color: #fff;
+        border: none;
         display: block;
         text-align: center;
         font-size: 2rem;
+        background: none;
       }
       #mo:hover{
         cursor: pointer;
@@ -26,8 +28,12 @@
   <body>
     <div class="content d-flex">
       <div class="sidebar col-md-2">
-        <a href="{% url 'addAddress' %}" class="border-bottom">Address</a>
-        <a  class="border-bottom" id="mo" onclick="myorder()">My Orders</a>
+        <a href="{% url 'addAddress' email=user.email%}" class="border-bottom" id="gotoaddr">Address</a>
+        <form action="{% url 'myorders' %}" method="post" class="border-bottom">
+          {% csrf_token %}
+          <input type="hidden" name="email" value="{{user.email}}">
+          <button class="m-auto">My Order</button>
+        </form>
       </div>
       <div class="main col-md-10">
           <h3 class="display-4 text-dark  border-bottom border-dark ">My Account</h3>
@@ -72,7 +78,7 @@
               <span class="input-group-text" id="mobileno-pen"
                 ><svg
                   width="1em"
-                  height="1em"
+                    height="1em"
                   viewBox="0 0 16 16"
                   class="bi bi-pencil"
                   fill="currentColor"
@@ -139,7 +145,6 @@
           document.querySelector("#update").removeAttribute("disabled");
         })
       });
-      
     </script>
   </body>
 </html>

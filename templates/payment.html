@@ -60,10 +60,11 @@
         <option value="icici">ICICI</option>
       </select>
     </div>
-    <form method="POST" class="text-center my-3" >
+    <form method="POST" class="text-center my-3" action="{% url 'payment'%}">
       {% csrf_token %}
       <input type="hidden" value="" id="pmtm" name="payment">
       <input type="hidden" name="email" id="email" value="{{email}}">
+      <input type="hidden" name="product" value="{{product}}">
       <button class="btn btn-success col-md-2 " disabled type="submit">
         Place Order
       </button>
@@ -79,9 +80,7 @@
 
       function bankSelect(){
         let bank=document.querySelector("#bank").value;
-        console.log(bank);
         document.querySelector("#pmtm").value="net-"+bank;
-        document.querySelector("#email").value=new URL(window.location.href).searchParams.get("email");
         document.querySelector("form button").disabled=false;
         
       }
@@ -91,11 +90,10 @@
         element.addEventListener("click",()=>{
           let method=element.value;
           document.querySelector("#pmtm").value=method;
-          document.querySelector("#email").value=new URL(window.location.href).searchParams.get("email");
           document.querySelector("form button").disabled=false;
         });
       });
-      console.log(new URL(window.location.href).searchParams.get("email"))
+     
     </script>
   </div>
 </body>

@@ -1,24 +1,38 @@
-{% include 'navbar.html' %} {% load static %} 
-{% block content %}
-<title>My cart | shopping.com</title>
-<link rel="stylesheet" href="{% static 'css/mycart.css'%}" />
-<div class="content">
-  <h1 class="display-5 text-center">My Cart</h1>
-  {% for allproduct in cart %} {% for product in allproduct%}
-  <div class="product">
-    <img src="{{product.product_image.url}}" alt="Image not found" />
-    <form method="post">
-      <label>Name : {{product.product_name}}</label>
-      <label>Quantity : {{product.product_quantity}}</label>
-      <label>Price : {{product.product_price}} $</label>
-      <a href="{% url 'buy' pid=product.product_id email=email %}" class="btn btn-primary" id="proceed">Proceed to Buy</a>
-      <a
-        href="{% url 'removeProduct' email=email pname=product.product_name %}"
-        class="btn btn-danger"
-        >Remove</a
-      >
-    </form>
-  </div>
-  {% endfor %} {% endfor %}
-</div>
-{% endblock %}
+{% include 'navbar.html' %} {% load static %}
+<html>
+  <head>
+    <title>My cart | shopping.com</title>
+    <link rel="stylesheet" href="{% static 'css/mycart.css'%}" />
+  </head>
+  <body>
+    <div class="content">
+      {% if cart %}
+      <h1 class="display-5 text-center">My Cart</h1>
+      {% for allproduct in cart %} {% for product in allproduct%}
+      <div class="product">
+        <img src="{{product.product_image.url}}" alt="Image not found" />
+        <form method="post">
+          <label>Name : {{product.product_name}}</label>
+          <label>Quantity : {{product.product_quantity}}</label>
+          <label>Price : {{product.product_price}} $</label>
+          <a
+            href="{% url 'buy' pid=product.product_id email=email %}"
+            class="btn btn-primary"
+            id="proceed"
+            >Proceed to Buy</a
+          >
+          <a
+            href="{% url 'removeProduct' email=email pid=product.product_id %}"
+            class="btn btn-danger"
+            >Remove</a
+          >
+        </form>
+      </div>
+      {% endfor %} {% endfor %}
+      {% else %}
+        <h1 class="text-center">Your cart is empty <br> To fill cart <a href="{% url 'market' email=user.email%}" class="text-center">click here</a></h1>
+        
+      {% endif %}
+    </div>
+  </body>
+</html>

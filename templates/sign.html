@@ -1,29 +1,35 @@
-{% extends 'navbar.html'%}
-{%load static %}
-{% block content%}
-<head>
+{% include 'navbar.html'%} {%load static %}
+<html>
+  <head>
     <style>
-        form{
-            width: 500px;
-            margin: 100px auto;
-        }
+      form {
+        width: 500px;
+        margin: 100px auto;
+      }
     </style>
     <title>Login | shopping.com</title>
-</head>
+  </head>
 
-<form method="post">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Login" class="btn btn-primary d-block m-auto">
-</form>
-<a href="{% url 'sign' %}" class="text-center d-block" id="signlink">New user?Create account</a>
-<script>
-    $(function(){
-        var url=window.location.href;
-        if(url == 'http://127.0.0.1:8000/accounts/sign'){
-            $("#signlink").remove();
-            $('.btn-primary').val('Sign up');
+  <body>
+    <form method="post">
+      {% csrf_token %} {{form.as_p}}
+      <input
+        type="submit"
+        value="Login"
+        class="btn btn-primary d-block m-auto"
+      />
+    </form>
+    <a href="{% url 'sign' %}" class="text-center d-block" id="signlink"
+      >New user?Create account</a
+    >
+    <script>
+      $(function () {
+        var url = window.location.href;
+        if (url == "http://127.0.0.1:8000/accounts/sign") {
+          $("#signlink").remove();
+          $(".btn-primary").val("Sign up");
         }
-    });
-</script>
-{% endblock %}
+      });
+    </script>
+  </body>
+</html>

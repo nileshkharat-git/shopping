@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.messages import success,info,error,warning
 from django.contrib.auth import authenticate,login,logout
 from .forms import MyForm, LogForm
-from .models import Accounts,UserAddress
+from .models import Accounts, UserAddress
+from market.models import MyCart, Products
+
 
 def cust_signup(request):
     if request.POST:
@@ -41,7 +43,7 @@ def show_dashboard(request):
     context={'user':user}
     return render(request, "dashBoard.html", context)
 
-def add_location(request):
+def add_location(request,email=None):
     if request.method == "POST":
         user=Accounts.objects.get(email=request.POST['email'])
         name=request.POST['name']
@@ -54,4 +56,37 @@ def add_location(request):
         address = UserAddress(email=user,name=name, mobile=mobile, house_no=houseno, area=area, city=city, state=state, pincode=pincode)
         address.save()
         return redirect(add_location)
-    return render(request,"addLocation.html")
+    locations = UserAddress.objects.all().filter(email=email)
+    pid=request.GET['product']
+    return render(request, "addLocation.html",{'locations':locations,'product_id':pid})
+
+def my_orders(request):
+    if request.method == 'POST':
+        if request.path == '/accounts/myorders':
+            email = request.POST['email']
+            allorders = MyCart.objects.all().filter(user=email, purchesed=True)
+            return render(request, 'myOrders.html', {'allorders': allorders})
+    return render(request,"myOrders.html")
+
+def select_address(request):
+    if request.POST:
+        email = request.POST['email']
+        name = request.POST['name']
+        pid = request.POST['product']
+        if UserAddress.objects.filter(email=email, useDefault=True).exists() and UserAddress.objects.filter(email=email, useDefault=True).get().name != name:
+            addr = UserAddress.objects.filter(email=email, useDefault=True).get()
+            addr.useDefault = False
+            addr.save()
+        else:
+            return render(request,"payment.html",{'product':pid,'email':email})
+        if not UserAddress.objects.filter(email=email, name=name).exists():
+            error(request, "Selected address is wrong!")
+            return redirect(add_location)
+
+        selected = UserAddress.objects.filter(email=email, name=name).get()
+        selected.useDefault = True
+        selected.save()
+        return render(request,"payment.html",{'product':pid,'email':email})
+    return redirect(add_location)        
+    
+    

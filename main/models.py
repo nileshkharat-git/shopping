@@ -35,7 +35,7 @@ class MyManager(BaseUserManager):
 class Accounts(AbstractBaseUser):
     email = models.EmailField(max_length=255, primary_key=True,verbose_name="Email")
     username = models.CharField(max_length=255, verbose_name="Username")
-    mobile=models.IntegerField(null=True)
+    mobile = models.IntegerField(null=True)
     date_joined=models.DateField(auto_now_add=True)
     last_login=models.DateField(auto_now=True)
 
@@ -57,15 +57,20 @@ class Accounts(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
-    
+
 class UserAddress(models.Model):
     """This table is used to store shipping address"""
     email = models.ForeignKey(Accounts, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255, verbose_name="Name")
+    name = models.CharField(max_length=255, verbose_name="Name",unique=True)
     mobile = models.CharField(max_length=10, verbose_name="Mobile", null=True)
     house_no = models.IntegerField(verbose_name="House Number")
     area=models.CharField(max_length=255,verbose_name="Local Area")
     city=models.CharField(max_length=255,verbose_name="City")
     state=models.CharField(max_length=255,verbose_name="State")
     pincode = models.IntegerField(verbose_name="Postal Code")
-    useDefault=models.BooleanField(default=False)
+    useDefault = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+    
+

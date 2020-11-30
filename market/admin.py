@@ -8,6 +8,10 @@ class ProductAdmin(admin.ModelAdmin):
 class TypeAdmin(admin.ModelAdmin):
     list_display=['id','p_type']
 
+class CartAdmin(admin.ModelAdmin):
+    list_filter = ['purchesed']
+    list_display = ('user', 'product_name', 'quantity', 'total', 'payment_method', 'purchesed', 'address','status')
+    
 admin.site.register(Products,ProductAdmin)
 admin.site.register(ProductType,TypeAdmin)
-admin.site.register(MyCart)
+admin.site.register(MyCart,CartAdmin)
